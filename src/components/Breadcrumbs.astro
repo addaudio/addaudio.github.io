@@ -1,0 +1,88 @@
+---
+import JsonLd from './JsonLd.astro';
+
+export interface BreadcrumbItem {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  siteUrl?: string;
+}
+
+const { items, siteUrl = 'https://addaudio.github.io' } = Astro.props;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: item.name,
+    item: new URL(item.href, siteUrl).href,
+  })),
+};
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol class="breadcrumbs-list">
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class="breadcrumbs-item">
+          {isLast ? (
+            <span aria-current="page">{item.name}</span>
+          ) : (
+            <>
+              <a href={item.href}>{item.name}</a>
+              <span class="breadcrumbs-sep" aria-hidden="true">/</span>
+            </>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<JsonLd schema={breadcrumbSchema} />
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 1.25rem;
+  }
+
+  .breadcrumbs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .breadcrumbs-item a:hover {
+    color: var(--text-body);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .breadcrumbs-item span[aria-current='page'] {
+    color: var(--text-body);
+  }
+
+  .breadcrumbs-sep {
+    opacity: 0.55;
+  }
+</style>

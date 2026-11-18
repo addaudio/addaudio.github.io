@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const pageTitle = 'How to Add Music to Video Without Uploading — AddAudio';
+const pageDescription =
+  'Learn how to add music to video without uploading files. Step-by-step guide to merge audio and video free, choose formats, and work offline.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'How to Use', href: '/how-to-use/' },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="page-shell">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="subpage-header">
+      <h1 class="subpage-title" data-i18n="how.title">How to Add Music to Video Without Uploading</h1>
+      <p class="subpage-subtitle" data-i18n="how.subtitle">
+        Follow three straightforward steps to merge audio and video locally with zero server uploads and no watermark.
+      </p>
+    </header>
+
+    <section class="steps-grid" aria-label="Step by step instructions">
+      <article class="page-card step-card">
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3" />
+            <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+          </svg>
+        </div>
+        <h2 data-i18n="how.step1Title">1. Select or Drop Your Video</h2>
+        <p data-i18n="how.step1Desc">
+          Choose any MP4, WebM, MOV, or MKV clip from your device. Your video stream is copied directly (-c:v copy) without re-encoding, preserving full resolution and clarity.
+        </p>
+      </article>
+
+      <article class="page-card step-card">
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+          </svg>
+        </div>
+        <h2 data-i18n="how.step2Title">2. Add or Mix Your Audio Track</h2>
+        <p data-i18n="how.step2Desc">
+          Load an MP3, WAV, AAC, or M4A soundtrack. Replace the original video sound completely or switch to Mix Audio to balance both tracks with volume sliders.
+        </p>
+      </article>
+
+      <article class="page-card step-card">
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </div>
+        <h2 data-i18n="how.step3Title">3. Merge & Download Without Watermark</h2>
+        <p data-i18n="how.step3Desc">
+          Click "Merge Audio & Video" to process everything inside your browser tab via WebAssembly FFmpeg, then preview and download your clean video file right away.
+        </p>
+      </article>
+    </section>
+
+    <section class="guide-details" aria-labelledby="formats-heading">
+      <article class="page-card detail-card">
+        <h2 id="formats-heading">Supported Video and Audio Formats</h2>
+        <p>
+          AddAudio works as a flexible audio to video converter online while keeping your original video frames untouched. Depending on your source clip, the tool selects the safest container automatically:
+        </p>
+        <ul>
+          <li><strong>Video Inputs:</strong> MP4, MOV, WebM, and MKV. H.264 and HEVC clips export directly to fast-start MP4, while VP8, VP9, and AV1 clips stay crisp in WebM.</li>
+          <li><strong>Audio Inputs:</strong> MP3, WAV, AAC, M4A, and OGG. You can preview your audio waveform right in the dropzone before merging.</li>
+          <li><strong>Length &amp; Volume Controls:</strong> Enable looping when your music clip is shorter than your video, keep auto-trim enabled to match video duration, or mix original camera sound with added background music.</li>
+        </ul>
+      </article>
+
+      <article class="page-card detail-card">
+        <h2>Using AddAudio as an Offline PWA</h2>
+        <p>
+          Want to add audio to video online free even on flights, trains, or areas with weak reception? Click the <strong>Add to Home Screen</strong> button in the navigation bar to install AddAudio as a Progressive Web App.
+        </p>
+        <p>
+          Once installed, our Service Worker caches the application shell and FFmpeg WebAssembly engine on your device so you can merge audio and video anytime without an active internet connection.
+        </p>
+      </article>
+    </section>
+
+    <div class="cta-row">
+      <a href="/" class="btn-primary" data-i18n="how.backToTool">Open Merger Tool</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .subpage-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .subpage-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+  }
+
+  .subpage-subtitle {
+    margin: 0 auto;
+    max-width: 680px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.15rem;
+  }
+
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-card h2,
+  .detail-card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .step-card p,
+  .detail-card p,
+  .detail-card li {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .guide-details {
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .detail-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .detail-card ul {
+    margin: 0.15rem 0 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .cta-row {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+</style>

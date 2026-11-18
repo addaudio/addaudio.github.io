@@ -1,0 +1,338 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+const pageTitle = 'Hire Kishara Dilshan — Astro, React & WebAssembly Dev';
+const pageDescription =
+  'Need a custom IT solution? Hire Kishara Dilshan, creator of AddAudio, for ultra-fast Astro, React, Next.js, WebAssembly tools, and UI/UX design.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Hire Me', href: '/hire-me/' },
+];
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Kishara Dilshan',
+  jobTitle: 'Web Application & WebAssembly Developer',
+  url: 'https://addaudio.github.io/hire-me/',
+  email: 'mailto:kisharadilshan007@gmail.com',
+  knowsAbout: [
+    'Astro',
+    'React',
+    'Next.js',
+    'WebAssembly',
+    'Client-Side Media Processing',
+    'UI/UX Design',
+    'Technical SEO',
+  ],
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <JsonLd schema={personSchema} />
+  </Fragment>
+
+  <section class="page-shell" aria-labelledby="hire-heading">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="hire-hero">
+      <span class="availability-pill">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span data-i18n="hire.badge">Available for Freelance Projects</span>
+      </span>
+      <h1 id="hire-heading" class="subpage-title" data-i18n="hire.title">
+        Need a Custom IT Solution?
+      </h1>
+      <p class="hire-intro" data-i18n="hire.intro">
+        Hi, I'm Kishara Dilshan, the developer behind AddAudio.
+      </p>
+      <p class="hire-pitch" data-i18n="hire.pitch">
+        If you love this fast, client-side tool and need a world-class IT solution for your own business, I am available for freelance projects. I specialize in:
+      </p>
+    </header>
+
+    <section class="specialties-grid" aria-label="Core Specialties">
+      <article class="page-card specialty-card">
+        <div class="spec-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+        </div>
+        <h2 data-i18n="hire.spec1Title">Ultra-fast, SEO-optimized web applications</h2>
+        <p data-i18n="hire.spec1Desc">
+          Astro, React, Next.js — engineered for sub-second loads, technical SEO, and clean scalability.
+        </p>
+      </article>
+
+      <article class="page-card specialty-card">
+        <div class="spec-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <path d="M15 2v2" />
+            <path d="M15 20v2" />
+            <path d="M2 15h2" />
+            <path d="M2 9h2" />
+            <path d="M20 15h2" />
+            <path d="M20 9h2" />
+            <path d="M9 2v2" />
+            <path d="M9 20v2" />
+          </svg>
+        </div>
+        <h2 data-i18n="hire.spec2Title">Client-side processing &amp; WebAssembly (WASM) tools</h2>
+        <p data-i18n="hire.spec2Desc">
+          Zero-server media, PDF, and data utilities that run privately inside the browser.
+        </p>
+      </article>
+
+      <article class="page-card specialty-card">
+        <div class="spec-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <path d="M3 9h18" />
+            <path d="M9 21V9" />
+          </svg>
+        </div>
+        <h2 data-i18n="hire.spec3Title">UI/UX design &amp; High-converting landing pages</h2>
+        <p data-i18n="hire.spec3Desc">
+          Minimal, accessible interfaces crafted to convert visitors effortlessly across desktop and mobile.
+        </p>
+      </article>
+    </section>
+
+    <section class="page-card contact-cta-card" aria-labelledby="hire-cta-heading">
+      <div class="contact-copy">
+        <h2 id="hire-cta-heading" data-i18n="hire.ctaTitle">
+          Let's build something amazing together.
+        </h2>
+        <p class="contact-email-line">
+          <span aria-hidden="true">📩</span>
+          <a href="mailto:kisharadilshan007@gmail.com" class="email-inline-link">
+            kisharadilshan007@gmail.com
+          </a>
+        </p>
+      </div>
+
+      <div class="contact-actions">
+        <a
+          href="mailto:kisharadilshan007@gmail.com?subject=Project%20Inquiry%20via%20AddAudio"
+          class="btn-primary contact-btn"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          <span data-i18n="hire.emailBtn">Email me directly: kisharadilshan007@gmail.com</span>
+        </a>
+
+        <button
+          type="button"
+          id="copy-email-btn"
+          class="btn-secondary"
+          data-email="kisharadilshan007@gmail.com"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <span id="copy-email-label" data-i18n="hire.copyBtn">Copy Email</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="cta-row">
+      <a href="/" class="btn-secondary" data-i18n="hire.backToTool">Back to AddAudio Merger</a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { getDict } from '../scripts/i18n-client';
+
+  const copyBtn = document.getElementById('copy-email-btn') as HTMLButtonElement | null;
+  const copyLabel = document.getElementById('copy-email-label') as HTMLElement | null;
+
+  if (copyBtn && copyLabel) {
+    let resetTimer: number | undefined;
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.dataset.email ?? 'kisharadilshan007@gmail.com';
+      try {
+        await navigator.clipboard.writeText(email);
+        copyLabel.textContent = getDict().hire.copiedBtn;
+        copyBtn.classList.add('is-copied');
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          copyLabel.textContent = getDict().hire.copyBtn;
+          copyBtn.classList.remove('is-copied');
+        }, 2200);
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  }
+</script>
+
+<style>
+  .hire-hero {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .availability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: var(--surface-card);
+    border: 1px solid var(--border-strong);
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .pulse-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    box-shadow: 0 0 0 0 var(--ring-focus);
+    animation: pulseGlow 2s infinite;
+  }
+
+  .subpage-title {
+    margin: 0.15rem 0 0;
+    font-size: clamp(2rem, 4.2vw, 2.95rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .hire-intro {
+    margin: 0;
+    font-size: clamp(1.08rem, 1.8vw, 1.25rem);
+    font-weight: 700;
+  }
+
+  .hire-pitch {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .specialty-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  }
+
+  .specialty-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .spec-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .specialty-card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .specialty-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .contact-cta-card {
+    margin-top: 1.35rem;
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--border-strong);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.15rem;
+  }
+
+  .contact-copy h2 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-email-line {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .email-inline-link {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--text-body);
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .contact-btn {
+    padding: 0.85rem 1.65rem;
+    font-size: 1rem;
+  }
+
+  .cta-row {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      box-shadow: 0 0 0 0 var(--ring-focus);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(173, 139, 115, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(173, 139, 115, 0);
+    }
+  }
+</style>

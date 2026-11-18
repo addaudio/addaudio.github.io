@@ -1,0 +1,436 @@
+---
+import { SUPPORTED_LANGUAGES } from '../i18n/translations';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+const normalize = (p: string) => (p === '/' ? '/' : p.replace(/\/+$/, '') + '/');
+const activePath = normalize(currentPath);
+---
+
+<header class="site-header">
+  <nav class="navbar" aria-label="Main Navigation">
+    <!-- Brand Logo + Name (Desktop) / Logo Icon only (Mobile & Tablet) -->
+    <a href="/" class="brand-link" aria-label="AddAudio Home">
+      <span class="brand-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 512 512" fill="none">
+          <rect x="16" y="16" width="480" height="480" rx="112" fill="var(--brand-primary)" />
+          <path
+            d="M112 156C112 140.536 128.918 131.022 142.133 139.076L278.133 221.976C290.826 229.711 290.826 248.289 278.133 256.024L142.133 338.924C128.918 346.978 112 337.464 112 322V156Z"
+            fill="var(--text-on-brand)"
+          />
+          <rect x="296" y="196" width="26" height="120" rx="13" fill="var(--text-on-brand)" fill-opacity="0.72" />
+          <rect x="338" y="144" width="26" height="224" rx="13" fill="var(--text-on-brand)" />
+          <rect x="380" y="212" width="26" height="88" rx="13" fill="var(--text-on-brand)" fill-opacity="0.72" />
+        </svg>
+      </span>
+      <span class="brand-name">AddAudio</span>
+    </a>
+
+    <!-- Right Controls: Language, Theme, Support, GitHub + Toggle Menu (Pages & PWA Install) -->
+    <div class="nav-actions">
+      <!-- 1. Language Selector Dropdown -->
+      <div class="nav-dropdown lang-dropdown" data-lang-dropdown>
+        <button
+          type="button"
+          class="icon-btn nav-control-pill"
+          data-lang-trigger
+          data-i18n-aria="nav.languageLabel"
+          aria-label="Select language"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <span class="nav-label-desktop lang-code-badge" data-lang-current>EN</span>
+          <svg class="nav-label-desktop chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+
+        <div class="dropdown-panel lang-menu" role="listbox" aria-label="Languages">
+          {SUPPORTED_LANGUAGES.map((lang) => (
+            <button
+              type="button"
+              role="option"
+              class="menu-item-btn lang-option"
+              data-lang-option={lang.code}
+              aria-selected={lang.code === 'en' ? 'true' : 'false'}
+            >
+              <span class="lang-option-name">{lang.name}</span>
+              <span class="lang-option-code">{lang.nativeShort}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- 2. Light / Dark Theme Toggle -->
+      <button
+        type="button"
+        class="icon-btn"
+        data-theme-toggle
+        data-i18n-aria="nav.themeToggle"
+        aria-label="Toggle dark mode"
+        aria-pressed="false"
+      >
+        <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+        <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2" />
+          <path d="M12 20v2" />
+          <path d="m4.93 4.93 1.41 1.41" />
+          <path d="m17.66 17.66 1.41 1.41" />
+          <path d="M2 12h2" />
+          <path d="M20 12h2" />
+          <path d="m6.34 17.66-1.41 1.41" />
+          <path d="m19.07 4.93-1.41 1.41" />
+        </svg>
+      </button>
+
+      <!-- 3. Support the Developer CTA -->
+      <a
+        href="https://kisharadilshan.gumroad.com/coffee"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="icon-btn nav-control-pill coffee-cta"
+        aria-label="Support the developer on Gumroad"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+          <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+          <line x1="6" x2="6" y1="2" y2="4" />
+          <line x1="10" x2="10" y1="2" y2="4" />
+          <line x1="14" x2="14" y1="2" y2="4" />
+        </svg>
+        <span class="nav-label-desktop" data-i18n="nav.supportCta">Support</span>
+      </a>
+
+      <!-- 4. GitHub Repository Link: ONLY clean GitHub SVG icon button -->
+      <a
+        href="https://github.com/addaudio/addaudio.github.io"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="icon-btn github-icon-btn"
+        aria-label="View Source on GitHub"
+        title="View Source on GitHub"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z" />
+        </svg>
+      </a>
+
+      <!-- Menu Toggle Icon (Houses Page Links + Add to Home Screen) -->
+      <div class="nav-dropdown nav-menu-dropdown" data-nav-menu-dropdown>
+        <button
+          type="button"
+          class="icon-btn nav-menu-toggle"
+          data-nav-menu-trigger
+          aria-label="Open navigation menu"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <svg class="icon-menu-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+          <svg class="icon-menu-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+
+        <div class="dropdown-panel nav-menu-panel" data-nav-menu-panel>
+          <a
+            href="/"
+            class:list={['menu-item-btn', { 'is-active': activePath === '/' }]}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span data-i18n="nav.home">Home</span>
+          </a>
+
+          <a
+            href="/how-to-use/"
+            class:list={['menu-item-btn', { 'is-active': activePath === '/how-to-use/' }]}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <path d="M12 17h.01" />
+            </svg>
+            <span data-i18n="nav.howToUse">How to Use</span>
+          </a>
+
+          <a
+            href="/privacy/"
+            class:list={['menu-item-btn', { 'is-active': activePath === '/privacy/' }]}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+            </svg>
+            <span data-i18n="nav.privacy">Privacy</span>
+          </a>
+
+          <a
+            href="/hire-me/"
+            class:list={['menu-item-btn', { 'is-active': activePath === '/hire-me/' }]}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            <span data-i18n="nav.hireMe">Hire Me</span>
+          </a>
+
+          <div class="menu-divider" role="separator"></div>
+
+          <button
+            type="button"
+            class="menu-item-btn pwa-install-btn"
+            data-pwa-install
+            data-i18n-aria="nav.installApp"
+            aria-label="Add to Home Screen"
+          >
+            <svg class="pwa-icon-install" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="2" width="14" height="20" rx="2.5" />
+              <path d="M12 8v6" />
+              <path d="m9.5 11.5 2.5 2.5 2.5-2.5" />
+              <path d="M10 18h4" />
+            </svg>
+            <svg class="pwa-icon-check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            <span data-pwa-label data-i18n="nav.installApp">Add to Home Screen</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .navbar {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    height: 60px;
+    padding: 0 clamp(0.75rem, 2.5vw, 1.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.025em;
+    flex-shrink: 0;
+    min-height: 42px;
+  }
+
+  .brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-smooth);
+  }
+
+  .brand-link:hover .brand-icon {
+    transform: scale(1.06) rotate(-2deg);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .nav-control-pill {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .coffee-cta {
+    background-color: var(--surface-card);
+    border-color: var(--border-strong);
+  }
+
+  .coffee-cta:hover {
+    background-color: var(--accent-secondary);
+  }
+
+  .pwa-install-btn .pwa-icon-check {
+    display: none;
+  }
+
+  .pwa-install-btn.is-installed .pwa-icon-install {
+    display: none;
+  }
+
+  .pwa-install-btn.is-installed .pwa-icon-check {
+    display: inline-block;
+  }
+
+  /* Menu Toggle Open/Close Icon State */
+  .nav-menu-toggle .icon-menu-close {
+    display: none;
+  }
+
+  .nav-menu-dropdown.is-open .nav-menu-toggle .icon-menu-open {
+    display: none;
+  }
+
+  .nav-menu-dropdown.is-open .nav-menu-toggle .icon-menu-close {
+    display: inline-block;
+  }
+
+  /* Theme Icon Visibility */
+  :global([data-theme='light']) .theme-icon-sun,
+  :global(:root:not([data-theme='dark'])) .theme-icon-sun {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .theme-icon-moon {
+    display: none;
+  }
+
+  /* Shared Dropdown Panel (Language + Nav Menu) */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .dropdown-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 218px;
+    max-height: calc(100dvh - 80px);
+    overflow-y: auto;
+    padding: 0.45rem;
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px) scale(0.98);
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease,
+      visibility 160ms ease;
+    z-index: 60;
+  }
+
+  .nav-dropdown.is-open .dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .menu-item-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    text-align: left;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-body);
+    transition: background-color 140ms ease;
+  }
+
+  .menu-item-btn:hover {
+    background-color: var(--bg-subtle);
+  }
+
+  .menu-item-btn.is-active {
+    background-color: var(--surface-card);
+    font-weight: 700;
+  }
+
+  .lang-option {
+    justify-content: space-between;
+    font-weight: 500;
+  }
+
+  .lang-option-code {
+    font-size: 0.75rem;
+    font-weight: 700;
+    opacity: 0.72;
+  }
+
+  .menu-divider {
+    height: 1px;
+    margin: 0.25rem 0.35rem;
+    background-color: var(--border-subtle);
+  }
+
+  /* Mobile & Tablet: Ultra-minimal icon-only top bar (< 1024px) */
+  @media (max-width: 1023px) {
+    .brand-name,
+    .nav-label-desktop {
+      display: none;
+    }
+
+    .nav-control-pill {
+      padding: 0.5rem;
+      min-width: 42px;
+      min-height: 42px;
+    }
+
+    .nav-actions {
+      gap: 0.35rem;
+    }
+  }
+
+  /* Mobile Viewport Edge Guard: prevent dropdowns from clipping off left/right edges */
+  @media (max-width: 679px) {
+    .nav-dropdown {
+      position: static;
+    }
+
+    .dropdown-panel {
+      left: auto;
+      right: 0.75rem;
+      top: calc(100% + 6px);
+      width: min(260px, calc(100vw - 1.5rem));
+      min-width: 0;
+    }
+  }
+</style>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://addaudio.github.io/sitemap.xml
+Sitemap: https://addaudio.github.io/sitemap-index.xml

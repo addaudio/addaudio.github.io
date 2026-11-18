@@ -1,0 +1,232 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AudioVideoMerger from '../components/AudioVideoMerger.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { translations } from '../i18n/translations';
+
+const pageTitle = translations.en.meta.title;
+const pageDescription = translations.en.meta.description;
+
+const faqItems = [
+  {
+    question: 'How can I add audio to video online free without watermarks?',
+    answer:
+      'Simply drop your video and audio track into the tool box above and click Merge Audio & Video. AddAudio lets you put music over video without watermark or subscriptions, and you can add audio to video no sign up directly in your browser.',
+  },
+  {
+    question: 'Is AddAudio really a private audio video merger with zero uploads?',
+    answer:
+      'Yes. AddAudio runs FFmpeg compiled to WebAssembly inside your own browser tab, making it a true zero data storage video editor. When you add music to video without uploading, zero bytes of your media ever leave your device or touch a server.',
+  },
+  {
+    question: 'Does this audio to video converter online reduce video quality?',
+    answer:
+      'No. AddAudio uses fast stream copying (-c:v copy) for the video track, so your original resolution, frame rate, and sharpness remain 100% untouched when you merge audio and video.',
+  },
+  {
+    question: 'Can I mix background music with original sound or work offline?',
+    answer:
+      'Yes. Switch from Replace Original to Mix Audio to balance both tracks with dedicated volume sliders, loop shorter clips, or trim audio automatically. Once installed via Add to Home Screen, the tool also works 100% offline.',
+  },
+];
+
+const webAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'AddAudio',
+  url: 'https://addaudio.github.io/',
+  description: pageDescription,
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires a modern browser with WebAssembly support',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <JsonLd schema={webAppSchema} />
+    <JsonLd schema={faqSchema} />
+  </Fragment>
+
+  <!-- Above-the-Fold Hero: H1, Hero Subtitle, and Interactive Tool Box ONLY -->
+  <section class="hero-viewport" aria-label="Audio and Video Merger">
+    <div class="hero-header">
+      <h1 class="hero-title" data-i18n="hero.title">Add Audio to Video Online</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">
+        Merge audio and video directly in your browser with 100% privacy, zero file uploads, and no watermark.
+      </p>
+    </div>
+
+    <AudioVideoMerger />
+  </section>
+
+  <!-- Below the Fold: Natural Helpful Content & Concise 4-Question FAQ -->
+  <section class="below-fold-section" aria-labelledby="why-use-heading">
+    <div class="section-intro">
+      <h2 id="why-use-heading" class="section-heading">Why Use Our Private Audio Video Merger</h2>
+      <p class="section-lead">
+        Most online tools ask you to upload large clips to remote cloud servers, wait in queues, or create an account before downloading. AddAudio is built differently so you can add audio to video online free right inside your browser with complete speed and confidentiality.
+      </p>
+    </div>
+
+    <div class="benefits-grid">
+      <article class="page-card benefit-card">
+        <h3>Add Music to Video Without Uploading</h3>
+        <p>
+          Every file you drop stays strictly inside your device memory. Powered by WebAssembly FFmpeg, this zero data storage video editor processes clips locally so you can add music to video without uploading sensitive footage anywhere.
+        </p>
+      </article>
+
+      <article class="page-card benefit-card">
+        <h3>Put Music Over Video Without Watermark</h3>
+        <p>
+          Export clean, full-resolution clips ready to share anywhere. AddAudio lets you add audio to video no sign up required and put music over video without watermark, paywalls, or daily export caps.
+        </p>
+      </article>
+
+      <article class="page-card benefit-card">
+        <h3>Lossless Stream Copy Speed</h3>
+        <p>
+          Unlike slow re-encoding suites, our audio to video converter online copies your original video stream bit-for-bit while replacing or mixing audio tracks, preserving 100% original video clarity in seconds.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="faq" class="below-fold-section faq-section" aria-labelledby="faq-heading">
+    <div class="section-intro">
+      <h2 id="faq-heading" class="section-heading">Frequently Asked Questions</h2>
+      <p class="section-lead">
+        Quick answers about privacy, quality, and offline support when you add audio to video.
+      </p>
+    </div>
+
+    <div class="home-faq-grid">
+      {faqItems.map((item) => (
+        <article class="page-card home-faq-card">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-viewport {
+    min-height: calc(100dvh - 60px);
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: clamp(0.75rem, 2.2vh, 1.5rem) clamp(0.75rem, 3vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 2vh, 1.35rem);
+  }
+
+  .hero-header {
+    text-align: center;
+    max-width: 720px;
+  }
+
+  .hero-title {
+    margin: 0 0 0.4rem;
+    font-size: clamp(2rem, 4.4vw, 3.3rem);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-subtitle {
+    margin: 0;
+    font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .below-fold-section {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: clamp(2.25rem, 5vw, 3.75rem) clamp(1rem, 3vw, 1.5rem) 0;
+  }
+
+  .faq-section {
+    padding-bottom: clamp(2.75rem, 6vw, 4.5rem);
+  }
+
+  .section-intro {
+    text-align: center;
+    max-width: 740px;
+    margin: 0 auto 1.75rem;
+  }
+
+  .section-heading {
+    margin: 0 0 0.6rem;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+
+  .section-lead {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .benefit-card,
+  .home-faq-card {
+    padding: 1.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .benefit-card h3,
+  .home-faq-card h3 {
+    margin: 0;
+    font-size: 1.12rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+
+  .benefit-card p,
+  .home-faq-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .home-faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.1rem;
+  }
+</style>

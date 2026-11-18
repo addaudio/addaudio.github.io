@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const pageTitle = 'Zero Data Storage Video Editor & Privacy Policy | AddAudio';
+const pageDescription =
+  'Discover how our private audio video merger works as a zero data storage video editor in your browser via WebAssembly with zero file uploads.';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Privacy', href: '/privacy/' },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="page-shell">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="subpage-header">
+      <h1 class="subpage-title" data-i18n="privacy.title">Privacy &amp; Zero Data Storage Architecture</h1>
+      <p class="subpage-subtitle" data-i18n="privacy.subtitle">
+        How our private audio video merger keeps your personal recordings, music, and projects 100% on your device.
+      </p>
+    </header>
+
+    <div class="trust-list">
+      <article class="page-card trust-card">
+        <h2>100% Client-Side WebAssembly Processing</h2>
+        <p>
+          AddAudio is engineered from the ground up as a zero data storage video editor. Instead of uploading your video or audio files to a backend transcoding server, your browser loads FFmpeg compiled to WebAssembly inside a local Web Worker.
+        </p>
+        <p>
+          When you click Merge Audio &amp; Video, every byte is read and muxed locally using your own device memory and CPU, then freed immediately after your download link is generated.
+        </p>
+      </article>
+
+      <article class="page-card trust-card">
+        <h2>Zero File Uploads and Zero Media Retention</h2>
+        <p>
+          Because there is no upload API, server bucket, or remote media database behind AddAudio, we never receive, inspect, store, or back up any video clip or audio track you process. You can verify this anytime in your browser Developer Tools Network tab or by using the app offline.
+        </p>
+      </article>
+
+      <article class="page-card trust-card">
+        <h2>Local Preferences and Offline Cache</h2>
+        <p>
+          AddAudio uses browser <code>localStorage</code> solely to remember your Light/Dark theme preference and selected interface language. When you install the app offline, the Service Worker stores only static HTML, styles, scripts, and FFmpeg WebAssembly engine binaries in Cache Storage.
+        </p>
+      </article>
+
+      <article class="page-card trust-card">
+        <h2>Lightweight Analytics Transparency</h2>
+        <p>
+          We use Google Tag Manager and Google Analytics 4 solely for anonymous site traffic metrics so we know which browsers and languages to prioritize. Analytics never reads your local files, filenames, durations, or media contents.
+        </p>
+      </article>
+    </div>
+
+    <div class="cta-row">
+      <a href="/" class="btn-primary" data-i18n="privacy.backToTool">Back to Merger</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .subpage-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .subpage-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+  }
+
+  .subpage-subtitle {
+    margin: 0 auto;
+    max-width: 680px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .trust-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .trust-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .trust-card h2 {
+    margin: 0;
+    font-size: 1.18rem;
+    font-weight: 800;
+  }
+
+  .trust-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .trust-card code {
+    padding: 0.12rem 0.4rem;
+    border-radius: 6px;
+    background: var(--bg-subtle);
+    font-size: 0.88em;
+  }
+
+  .cta-row {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+</style>

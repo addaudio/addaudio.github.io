@@ -1,0 +1,316 @@
+/* =========================================================
+   AddAudio Design System — Warm Organic Minimalism
+   Light Default + Seamless Dark Mode
+   ========================================================= */
+
+:root {
+  /* Light Mode Palette */
+  --bg-primary: #FFFBE9;
+  --surface-card: #E3CAA5;
+  --accent-secondary: #CEAB93;
+  --brand-primary: #AD8B73;
+  --text-body: #3D3028;
+
+  /* Derived Semantic Tokens */
+  --bg-elevated: #FFFDF5;
+  --bg-subtle: rgba(227, 202, 165, 0.32);
+  --surface-dropzone: rgba(255, 251, 233, 0.72);
+  --surface-dropzone-hover: rgba(255, 251, 233, 0.94);
+  --border-subtle: rgba(173, 139, 115, 0.35);
+  --border-strong: rgba(173, 139, 115, 0.7);
+  --text-muted: rgba(61, 48, 40, 0.78);
+  --text-on-brand: #1E1916;
+  --shadow-card: 0 18px 48px -18px rgba(61, 48, 40, 0.18), 0 4px 16px -6px rgba(61, 48, 40, 0.08);
+  --shadow-soft: 0 8px 24px -10px rgba(61, 48, 40, 0.14);
+  --ring-focus: rgba(173, 139, 115, 0.55);
+  --nav-bg: rgba(255, 251, 233, 0.86);
+  --success-bg: rgba(173, 139, 115, 0.18);
+
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+  --transition-smooth: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1E1916;
+  --surface-card: #2C241F;
+  --accent-secondary: #AD8B73;
+  --brand-primary: #E3CAA5;
+  --text-body: #FFFBE9;
+
+  --bg-elevated: #362C26;
+  --bg-subtle: rgba(173, 139, 115, 0.14);
+  --surface-dropzone: rgba(30, 25, 22, 0.56);
+  --surface-dropzone-hover: rgba(30, 25, 22, 0.86);
+  --border-subtle: rgba(227, 202, 165, 0.22);
+  --border-strong: rgba(227, 202, 165, 0.58);
+  --text-muted: rgba(255, 251, 233, 0.78);
+  --text-on-brand: #1E1916;
+  --shadow-card: 0 24px 56px -20px rgba(0, 0, 0, 0.55), 0 4px 16px -6px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 10px 26px -12px rgba(0, 0, 0, 0.45);
+  --ring-focus: rgba(227, 202, 165, 0.5);
+  --nav-bg: rgba(30, 25, 22, 0.86);
+  --success-bg: rgba(227, 202, 165, 0.14);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, var(--bg-subtle), transparent 70%);
+  color: var(--text-body);
+  line-height: 1.5;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ring-focus);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Shared Icon Button Styles */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 42px;
+  min-height: 42px;
+  padding: 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-body);
+  transition:
+    background-color var(--transition-smooth),
+    border-color var(--transition-smooth),
+    transform var(--transition-smooth);
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Content Container for Subpages */
+.page-shell {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem) 4rem;
+}
+
+.page-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 54px;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform var(--transition-smooth),
+    filter var(--transition-smooth),
+    box-shadow var(--transition-smooth),
+    opacity var(--transition-smooth);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.7rem 1.35rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface-dropzone);
+  color: var(--text-body);
+  font-weight: 600;
+  transition:
+    background-color var(--transition-smooth),
+    transform var(--transition-smooth),
+    border-color var(--transition-smooth);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-dropzone-hover);
+  transform: translateY(-1px);
+}
+
+/* Global Footer (kept cleanly below the fold on index.astro) */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.25rem clamp(1rem, 3vw, 2rem);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.site-footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* PWA Install Fallback Modal */
+.pwa-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(30, 25, 22, 0.55);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.pwa-modal-backdrop[hidden] {
+  display: none;
+}
+
+.pwa-modal-backdrop.is-open {
+  opacity: 1;
+}
+
+.pwa-modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-elevated);
+  color: var(--text-body);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transform: translateY(10px) scale(0.98);
+  transition: transform 180ms ease;
+}
+
+.pwa-modal-backdrop.is-open .pwa-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.pwa-modal-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.pwa-modal-card p {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.96rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

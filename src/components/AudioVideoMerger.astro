@@ -1,0 +1,1417 @@
+---
+---
+
+<section class="merger-box" id="merger-tool" aria-label="Audio Video Merger Tool">
+  <!-- Hidden File Inputs -->
+  <input
+    id="video-file-input"
+    type="file"
+    accept="video/mp4,video/webm,video/quicktime,video/x-matroska,.mp4,.webm,.mov,.mkv"
+    class="sr-only"
+  />
+  <input
+    id="audio-file-input"
+    type="file"
+    accept="audio/mpeg,audio/wav,audio/aac,audio/mp4,audio/x-m4a,audio/ogg,.mp3,.wav,.aac,.m4a,.ogg"
+    class="sr-only"
+  />
+
+  <!-- Step 1 & Step 2: Side-by-Side Dropzones -->
+  <div class="dropzone-grid">
+    <!-- STEP 1: VIDEO -->
+    <div
+      id="video-dropzone"
+      class="dropzone"
+      role="button"
+      tabindex="0"
+      aria-label="Select or drop video file"
+      aria-labelledby="step1-title"
+    >
+      <div class="dropzone-empty" id="video-empty">
+        <span class="step-pill" data-i18n="tool.step1Badge">1 · Video</span>
+        <div class="drop-icon-wrap" aria-hidden="true">
+          <svg class="drop-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3.5" />
+            <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+            <path d="M2 8h3" />
+            <path d="M2 16h3" />
+            <path d="M19 8h3" />
+            <path d="M19 16h3" />
+          </svg>
+        </div>
+        <h2 id="step1-title" class="drop-title" data-i18n="tool.step1Title">Drop Video Here</h2>
+        <p class="drop-sub" data-i18n="tool.step1Browse">or tap to select file</p>
+        <span class="format-badge" data-i18n="tool.step1Formats">MP4 · WebM · MOV · MKV</span>
+      </div>
+
+      <div class="dropzone-loaded" id="video-loaded" hidden>
+        <div class="loaded-header">
+          <span class="step-pill is-ready" data-i18n="tool.step1Badge">1 · Video</span>
+          <div class="loaded-actions">
+            <button type="button" class="mini-action-btn" id="video-change-btn" data-i18n="tool.replaceFile">Change</button>
+            <button type="button" class="mini-action-btn is-danger" id="video-remove-btn" data-i18n="tool.removeFile">Remove</button>
+          </div>
+        </div>
+        <div class="loaded-file-info">
+          <div class="loaded-icon-badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3" />
+              <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <div class="loaded-text">
+            <p class="file-name" id="video-filename">video.mp4</p>
+            <p class="file-meta" id="video-meta">0 MB · --:--</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: AUDIO -->
+    <div
+      id="audio-dropzone"
+      class="dropzone"
+      role="button"
+      tabindex="0"
+      aria-label="Select or drop audio file"
+      aria-labelledby="step2-title"
+    >
+      <div class="dropzone-empty" id="audio-empty">
+        <span class="step-pill" data-i18n="tool.step2Badge">2 · Audio</span>
+        <div class="drop-icon-wrap" aria-hidden="true">
+          <svg class="drop-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+          </svg>
+        </div>
+        <h2 id="step2-title" class="drop-title" data-i18n="tool.step2Title">Drop Audio Here</h2>
+        <p class="drop-sub" data-i18n="tool.step2Browse">or tap to select file</p>
+        <span class="format-badge" data-i18n="tool.step2Formats">MP3 · WAV · AAC · M4A</span>
+      </div>
+
+      <div class="dropzone-loaded" id="audio-loaded" hidden>
+        <div class="loaded-header">
+          <span class="step-pill is-ready" data-i18n="tool.step2Badge">2 · Audio</span>
+          <div class="loaded-actions">
+            <button
+              type="button"
+              class="mini-action-btn play-preview-btn"
+              id="audio-preview-btn"
+              aria-label="Play audio preview"
+              data-i18n-aria="tool.playPreview"
+            >
+              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M6 4l15 8-15 8V4z" />
+              </svg>
+              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <rect x="6" y="4" width="4" height="16" rx="1" />
+                <rect x="14" y="4" width="4" height="16" rx="1" />
+              </svg>
+            </button>
+            <button type="button" class="mini-action-btn" id="audio-change-btn" data-i18n="tool.replaceFile">Change</button>
+            <button type="button" class="mini-action-btn is-danger" id="audio-remove-btn" data-i18n="tool.removeFile">Remove</button>
+          </div>
+        </div>
+        <div class="loaded-file-info">
+          <div class="loaded-text">
+            <p class="file-name" id="audio-filename">track.mp3</p>
+            <p class="file-meta" id="audio-meta">0 MB · --:--</p>
+          </div>
+        </div>
+        <!-- Animated Audio Waveform Visualization -->
+        <div class="waveform-strip" id="audio-waveform" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Options Bar -->
+  <div class="options-panel">
+    <div class="options-row">
+      <!-- Replace vs Mix Segmented Control -->
+      <div class="mode-switch" role="radiogroup" aria-label="Audio Track">
+        <button
+          type="button"
+          class="mode-btn is-active"
+          id="mode-replace-btn"
+          role="radio"
+          aria-checked="true"
+          data-mode="replace"
+          data-i18n="tool.modeReplace"
+        >
+          Replace Original
+        </button>
+        <button
+          type="button"
+          class="mode-btn"
+          id="mode-mix-btn"
+          role="radio"
+          aria-checked="false"
+          data-mode="mix"
+          data-i18n="tool.modeMix"
+        >
+          Mix Audio
+        </button>
+      </div>
+
+      <!-- Loop & Trim Switches -->
+      <div class="toggles-group">
+        <label class="toggle-chip">
+          <input type="checkbox" id="opt-loop" />
+          <span class="toggle-box" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </span>
+          <span data-i18n="tool.loopLabel">Loop audio if shorter</span>
+        </label>
+
+        <label class="toggle-chip">
+          <input type="checkbox" id="opt-trim" checked />
+          <span class="toggle-box" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </span>
+          <span data-i18n="tool.trimLabel">Trim audio to video length</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Volume Sliders (Expanded Smoothly in Mix Mode) -->
+    <div class="mix-sliders-wrap" id="mix-sliders-wrap" aria-hidden="true">
+      <div class="mix-sliders-inner">
+        <div class="slider-control">
+          <div class="slider-label-row">
+            <label for="orig-vol-slider" data-i18n="tool.origVolLabel">Video Audio</label>
+            <span class="slider-val" id="orig-vol-val">50%</span>
+          </div>
+          <input
+            id="orig-vol-slider"
+            type="range"
+            min="0"
+            max="150"
+            value="50"
+            step="5"
+            aria-label="Original video audio volume"
+            aria-valuetext="50%"
+          />
+        </div>
+        <div class="slider-control">
+          <div class="slider-label-row">
+            <label for="new-vol-slider" data-i18n="tool.newVolLabel">New Audio</label>
+            <span class="slider-val" id="new-vol-val">100%</span>
+          </div>
+          <input
+            id="new-vol-slider"
+            type="range"
+            min="0"
+            max="150"
+            value="100"
+            step="5"
+            aria-label="Added audio track volume"
+            aria-valuetext="100%"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Validation / Runtime Notice or Error -->
+  <div id="merger-alert" class="merger-alert" role="alert" hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
+    <span id="merger-alert-text"></span>
+  </div>
+
+  <!-- Step 3: Action / Progress / Result -->
+  <div class="action-area" id="action-area">
+    <button type="button" id="merge-btn" class="btn-primary merge-cta" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 6h13" />
+        <path d="M8 12h13" />
+        <path d="M8 18h13" />
+        <path d="M3 6h.01" />
+        <path d="M3 12h.01" />
+        <path d="M3 18h.01" />
+      </svg>
+      <span id="merge-btn-label" data-i18n="tool.mergeBtn">Merge Audio & Video</span>
+    </button>
+  </div>
+
+  <!-- Progress Panel -->
+  <div class="progress-panel" id="progress-panel" hidden>
+    <div class="progress-header">
+      <span class="progress-stage" id="progress-stage-text">Loading FFmpeg WebAssembly engine...</span>
+      <span class="progress-pct" id="progress-pct-text">0%</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-aria">
+      <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+    </div>
+  </div>
+
+  <!-- Success / Download Panel -->
+  <div class="result-panel" id="result-panel" hidden>
+    <div class="result-top">
+      <div class="result-badge-row">
+        <span class="success-check" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <path class="check-path" d="M20 6 9 17l-5-5" />
+          </svg>
+        </span>
+        <div>
+          <h3 class="result-title" data-i18n="tool.successTitle">Merged Successfully!</h3>
+          <p class="result-sub" id="result-meta-line" data-i18n="tool.successSubtitle">
+            Original video quality 100% preserved
+          </p>
+        </div>
+      </div>
+      <div class="result-actions">
+        <a id="download-link" href="#" download="merged.mp4" class="btn-primary result-download-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span data-i18n="tool.downloadBtn">Download Video</span>
+        </a>
+        <button type="button" id="reset-btn" class="btn-secondary" data-i18n="tool.mergeAnotherBtn">
+          Start New
+        </button>
+      </div>
+    </div>
+    <div class="result-preview-wrap">
+      <video id="result-video-preview" controls playsinline class="result-video"></video>
+    </div>
+  </div>
+
+  <div class="privacy-pill-row">
+    <span class="privacy-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+      <span data-i18n="tool.offlineBadge">100% Private · Client-Side</span>
+    </span>
+  </div>
+</section>
+
+<script>
+  import { getDict } from '../scripts/i18n-client';
+  import {
+    formatBytes,
+    formatDuration,
+    mergeAudioAndVideo,
+    probeAudioMeta,
+    probeVideoMeta,
+    type AudioMode,
+    type MergeStageUpdate,
+  } from '../scripts/ffmpeg-engine';
+
+  const videoInput = document.getElementById('video-file-input') as HTMLInputElement;
+  const audioInput = document.getElementById('audio-file-input') as HTMLInputElement;
+  const videoDropzone = document.getElementById('video-dropzone') as HTMLElement;
+  const audioDropzone = document.getElementById('audio-dropzone') as HTMLElement;
+
+  const videoEmpty = document.getElementById('video-empty') as HTMLElement;
+  const videoLoaded = document.getElementById('video-loaded') as HTMLElement;
+  const videoFilenameEl = document.getElementById('video-filename') as HTMLElement;
+  const videoMetaEl = document.getElementById('video-meta') as HTMLElement;
+
+  const audioEmpty = document.getElementById('audio-empty') as HTMLElement;
+  const audioLoaded = document.getElementById('audio-loaded') as HTMLElement;
+  const audioFilenameEl = document.getElementById('audio-filename') as HTMLElement;
+  const audioMetaEl = document.getElementById('audio-meta') as HTMLElement;
+  const waveformEl = document.getElementById('audio-waveform') as HTMLElement;
+  const audioPreviewBtn = document.getElementById('audio-preview-btn') as HTMLButtonElement;
+
+  const modeReplaceBtn = document.getElementById('mode-replace-btn') as HTMLButtonElement;
+  const modeMixBtn = document.getElementById('mode-mix-btn') as HTMLButtonElement;
+  const mixSlidersWrap = document.getElementById('mix-sliders-wrap') as HTMLElement;
+  const origVolSlider = document.getElementById('orig-vol-slider') as HTMLInputElement;
+  const newVolSlider = document.getElementById('new-vol-slider') as HTMLInputElement;
+  const origVolVal = document.getElementById('orig-vol-val') as HTMLElement;
+  const newVolVal = document.getElementById('new-vol-val') as HTMLElement;
+  const optLoop = document.getElementById('opt-loop') as HTMLInputElement;
+  const optTrim = document.getElementById('opt-trim') as HTMLInputElement;
+
+  const alertBox = document.getElementById('merger-alert') as HTMLElement;
+  const alertText = document.getElementById('merger-alert-text') as HTMLElement;
+  const actionArea = document.getElementById('action-area') as HTMLElement;
+  const mergeBtn = document.getElementById('merge-btn') as HTMLButtonElement;
+  const mergeBtnLabel = document.getElementById('merge-btn-label') as HTMLElement;
+
+  const progressPanel = document.getElementById('progress-panel') as HTMLElement;
+  const progressStageText = document.getElementById('progress-stage-text') as HTMLElement;
+  const progressPctText = document.getElementById('progress-pct-text') as HTMLElement;
+  const progressBarAria = document.getElementById('progress-bar-aria') as HTMLElement;
+  const progressFill = document.getElementById('progress-fill') as HTMLElement;
+
+  const resultPanel = document.getElementById('result-panel') as HTMLElement;
+  const resultMetaLine = document.getElementById('result-meta-line') as HTMLElement;
+  const downloadLink = document.getElementById('download-link') as HTMLAnchorElement;
+  const resultVideoPreview = document.getElementById('result-video-preview') as HTMLVideoElement;
+  const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+
+  let selectedVideo: File | null = null;
+  let selectedAudio: File | null = null;
+  let videoDurationHint = 0;
+  let audioDurationHint = 0;
+  let audioMode: AudioMode = 'replace';
+  let isProcessing = false;
+  let currentStage: MergeStageUpdate['stage'] | null = null;
+  let resultObjectUrl: string | null = null;
+  let audioPreviewEl: HTMLAudioElement | null = null;
+  let audioPreviewUrl: string | null = null;
+
+  const VIDEO_EXTS = ['.mp4', '.webm', '.mov', '.mkv', '.m4v'];
+  const AUDIO_EXTS = ['.mp3', '.wav', '.aac', '.m4a', '.ogg'];
+
+  function hasValidExt(name: string, allowed: string[]): boolean {
+    const lower = name.toLowerCase();
+    return allowed.some((ext) => lower.endsWith(ext));
+  }
+
+  function showAlert(message: string, isNotice = false): void {
+    alertText.textContent = message;
+    alertBox.classList.toggle('is-notice', isNotice);
+    alertBox.hidden = false;
+  }
+
+  function clearAlert(): void {
+    alertBox.hidden = true;
+    alertBox.classList.remove('is-notice');
+    alertText.textContent = '';
+  }
+
+  function clearResult(): void {
+    if (resultObjectUrl) {
+      URL.revokeObjectURL(resultObjectUrl);
+      resultObjectUrl = null;
+    }
+    resultVideoPreview.removeAttribute('src');
+    resultVideoPreview.load();
+    resultPanel.hidden = true;
+    actionArea.hidden = false;
+  }
+
+  function stopAudioPreview(): void {
+    if (audioPreviewEl) {
+      audioPreviewEl.pause();
+      audioPreviewEl.removeAttribute('src');
+      audioPreviewEl = null;
+    }
+    if (audioPreviewUrl) {
+      URL.revokeObjectURL(audioPreviewUrl);
+      audioPreviewUrl = null;
+    }
+    audioPreviewBtn.classList.remove('is-playing');
+    waveformEl.classList.remove('is-playing');
+    const dict = getDict();
+    audioPreviewBtn.setAttribute('aria-label', dict.tool.playPreview);
+  }
+
+  function updateMergeButtonState(): void {
+    mergeBtn.disabled = !selectedVideo || !selectedAudio || isProcessing;
+  }
+
+  function renderWaveform(peaks: number[]): void {
+    waveformEl.innerHTML = '';
+    peaks.forEach((p, idx) => {
+      const bar = document.createElement('span');
+      bar.className = 'wave-bar';
+      bar.style.setProperty('--bar-h', `${Math.round(p * 100)}%`);
+      bar.style.setProperty('--bar-delay', `${(idx % 12) * 55}ms`);
+      waveformEl.appendChild(bar);
+    });
+  }
+
+  async function handleVideoSelect(file: File | undefined): Promise<void> {
+    if (!file) return;
+    if (!file.type.startsWith('video/') && !hasValidExt(file.name, VIDEO_EXTS)) {
+      showAlert(getDict().tool.errorBadVideo);
+      return;
+    }
+    clearAlert();
+    clearResult();
+    selectedVideo = file;
+    videoDropzone.classList.add('has-file');
+    videoEmpty.hidden = true;
+    videoLoaded.hidden = false;
+    videoFilenameEl.textContent = file.name;
+    videoMetaEl.textContent = `${formatBytes(file.size)} · ...`;
+    updateMergeButtonState();
+
+    const meta = await probeVideoMeta(file);
+    if (selectedVideo !== file) return;
+    videoDurationHint = meta.duration;
+    const resStr = meta.width && meta.height ? ` · ${meta.width}×${meta.height}` : '';
+    videoMetaEl.textContent = `${formatBytes(file.size)} · ${formatDuration(meta.duration)}${resStr}`;
+  }
+
+  async function handleAudioSelect(file: File | undefined): Promise<void> {
+    if (!file) return;
+    if (!file.type.startsWith('audio/') && !hasValidExt(file.name, AUDIO_EXTS)) {
+      showAlert(getDict().tool.errorBadAudio);
+      return;
+    }
+    clearAlert();
+    clearResult();
+    stopAudioPreview();
+    selectedAudio = file;
+    audioDropzone.classList.add('has-file');
+    audioEmpty.hidden = true;
+    audioLoaded.hidden = false;
+    audioFilenameEl.textContent = file.name;
+    audioMetaEl.textContent = `${formatBytes(file.size)} · ...`;
+    renderWaveform(Array.from({ length: 36 }, (_, i) => 0.3 + 0.4 * Math.abs(Math.sin(i * 0.5))));
+    updateMergeButtonState();
+
+    const meta = await probeAudioMeta(file);
+    if (selectedAudio !== file) return;
+    audioDurationHint = meta.duration;
+    audioMetaEl.textContent = `${formatBytes(file.size)} · ${formatDuration(meta.duration)}`;
+    renderWaveform(meta.peaks);
+  }
+
+  function removeVideo(e: Event): void {
+    e.stopPropagation();
+    selectedVideo = null;
+    videoDurationHint = 0;
+    videoInput.value = '';
+    videoDropzone.classList.remove('has-file');
+    videoLoaded.hidden = true;
+    videoEmpty.hidden = false;
+    clearResult();
+    clearAlert();
+    updateMergeButtonState();
+  }
+
+  function removeAudio(e: Event): void {
+    e.stopPropagation();
+    stopAudioPreview();
+    selectedAudio = null;
+    audioDurationHint = 0;
+    audioInput.value = '';
+    audioDropzone.classList.remove('has-file');
+    audioLoaded.hidden = true;
+    audioEmpty.hidden = false;
+    clearResult();
+    clearAlert();
+    updateMergeButtonState();
+  }
+
+  function setupDropzone(
+    zone: HTMLElement,
+    input: HTMLInputElement,
+    onFile: (f: File | undefined) => void
+  ): void {
+    zone.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('button')) return;
+      if (!isProcessing) input.click();
+    });
+
+    zone.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).closest('button')) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (!isProcessing) input.click();
+      }
+    });
+
+    zone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (!isProcessing) zone.classList.add('is-dragover');
+    });
+
+    zone.addEventListener('dragleave', () => {
+      zone.classList.remove('is-dragover');
+    });
+
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('is-dragover');
+      if (isProcessing) return;
+      onFile(e.dataTransfer?.files?.[0]);
+    });
+
+    input.addEventListener('change', () => {
+      onFile(input.files?.[0]);
+    });
+  }
+
+  setupDropzone(videoDropzone, videoInput, handleVideoSelect);
+  setupDropzone(audioDropzone, audioInput, handleAudioSelect);
+
+  document.getElementById('video-change-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!isProcessing) videoInput.click();
+  });
+  document.getElementById('video-remove-btn')?.addEventListener('click', removeVideo);
+
+  document.getElementById('audio-change-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!isProcessing) audioInput.click();
+  });
+  document.getElementById('audio-remove-btn')?.addEventListener('click', removeAudio);
+
+  audioPreviewBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!selectedAudio) return;
+    const dict = getDict();
+
+    if (audioPreviewEl && !audioPreviewEl.paused) {
+      audioPreviewEl.pause();
+      audioPreviewBtn.classList.remove('is-playing');
+      waveformEl.classList.remove('is-playing');
+      audioPreviewBtn.setAttribute('aria-label', dict.tool.playPreview);
+      return;
+    }
+
+    if (!audioPreviewEl) {
+      audioPreviewUrl = URL.createObjectURL(selectedAudio);
+      audioPreviewEl = new Audio(audioPreviewUrl);
+      audioPreviewEl.addEventListener('ended', () => {
+        audioPreviewBtn.classList.remove('is-playing');
+        waveformEl.classList.remove('is-playing');
+        audioPreviewBtn.setAttribute('aria-label', getDict().tool.playPreview);
+      });
+    }
+
+    audioPreviewEl.play().then(() => {
+      audioPreviewBtn.classList.add('is-playing');
+      waveformEl.classList.add('is-playing');
+      audioPreviewBtn.setAttribute('aria-label', dict.tool.pausePreview);
+    }).catch(() => {});
+  });
+
+  function setAudioMode(mode: AudioMode): void {
+    audioMode = mode;
+    const isMix = mode === 'mix';
+    modeReplaceBtn.classList.toggle('is-active', !isMix);
+    modeReplaceBtn.setAttribute('aria-checked', String(!isMix));
+    modeMixBtn.classList.toggle('is-active', isMix);
+    modeMixBtn.setAttribute('aria-checked', String(isMix));
+    mixSlidersWrap.classList.toggle('is-open', isMix);
+    mixSlidersWrap.setAttribute('aria-hidden', String(!isMix));
+    clearResult();
+  }
+
+  modeReplaceBtn.addEventListener('click', () => setAudioMode('replace'));
+  modeMixBtn.addEventListener('click', () => setAudioMode('mix'));
+
+  origVolSlider.addEventListener('input', () => {
+    origVolVal.textContent = `${origVolSlider.value}%`;
+    origVolSlider.setAttribute('aria-valuetext', `${origVolSlider.value}%`);
+    clearResult();
+  });
+  newVolSlider.addEventListener('input', () => {
+    newVolVal.textContent = `${newVolSlider.value}%`;
+    newVolSlider.setAttribute('aria-valuetext', `${newVolSlider.value}%`);
+    clearResult();
+  });
+  optLoop.addEventListener('change', clearResult);
+  optTrim.addEventListener('change', clearResult);
+
+  function getStageLabel(stage: MergeStageUpdate['stage']): string {
+    const dict = getDict();
+    switch (stage) {
+      case 'loading':
+        return dict.tool.statusLoading;
+      case 'probing':
+        return dict.tool.statusProbing;
+      case 'merging':
+        return dict.tool.statusMerging;
+      case 'finalizing':
+        return dict.tool.statusFinalizing;
+    }
+  }
+
+  function updateProgressUI(update: MergeStageUpdate): void {
+    currentStage = update.stage;
+    const pct = Math.max(0, Math.min(100, Math.round(update.progress * 100)));
+    progressStageText.textContent = getStageLabel(update.stage);
+    progressPctText.textContent = `${pct}%`;
+    progressBarAria.setAttribute('aria-valuenow', String(pct));
+    progressFill.style.width = `${pct}%`;
+
+    if (update.noticeKey === 'silentVideoNotice') {
+      showAlert(getDict().tool.silentVideoNotice, true);
+    }
+  }
+
+  mergeBtn.addEventListener('click', async () => {
+    if (!selectedVideo || !selectedAudio || isProcessing) return;
+
+    stopAudioPreview();
+    clearAlert();
+    clearResult();
+
+    isProcessing = true;
+    updateMergeButtonState();
+    mergeBtnLabel.textContent = getDict().tool.mergingBtn;
+    actionArea.hidden = true;
+    progressPanel.hidden = false;
+    updateProgressUI({ stage: 'loading', progress: 0.05 });
+
+    try {
+      const result = await mergeAudioAndVideo(
+        {
+          videoFile: selectedVideo,
+          audioFile: selectedAudio,
+          mode: audioMode,
+          originalVolume: Number(origVolSlider.value) / 100,
+          addedVolume: Number(newVolSlider.value) / 100,
+          loopAudio: optLoop.checked,
+          trimToVideo: optTrim.checked,
+          videoDurationHint,
+          audioDurationHint,
+        },
+        updateProgressUI
+      );
+
+      resultObjectUrl = result.url;
+      downloadLink.href = result.url;
+      downloadLink.download = result.filename;
+      resultVideoPreview.src = result.url;
+      resultMetaLine.textContent = `${getDict().tool.successSubtitle} · ${formatBytes(result.blob.size)} · ${(result.elapsedMs / 1000).toFixed(1)}s`;
+
+      progressPanel.hidden = true;
+      resultPanel.hidden = false;
+      resultPanel.classList.remove('is-revealed');
+      void resultPanel.offsetWidth;
+      resultPanel.classList.add('is-revealed');
+    } catch (err) {
+      console.error('[AddAudio] Merge failed:', err);
+      progressPanel.hidden = true;
+      actionArea.hidden = false;
+      showAlert(getDict().tool.errorGeneric);
+    } finally {
+      isProcessing = false;
+      currentStage = null;
+      mergeBtnLabel.textContent = getDict().tool.mergeBtn;
+      updateMergeButtonState();
+    }
+  });
+
+  resetBtn.addEventListener('click', () => {
+    stopAudioPreview();
+    clearAlert();
+    clearResult();
+    selectedVideo = null;
+    selectedAudio = null;
+    videoDurationHint = 0;
+    audioDurationHint = 0;
+    videoInput.value = '';
+    audioInput.value = '';
+    videoDropzone.classList.remove('has-file');
+    audioDropzone.classList.remove('has-file');
+    videoLoaded.hidden = true;
+    audioLoaded.hidden = true;
+    videoEmpty.hidden = false;
+    audioEmpty.hidden = false;
+    updateMergeButtonState();
+  });
+
+  // React to language switches smoothly without reloading
+  window.addEventListener('addaudio:langchange', () => {
+    const dict = getDict();
+    mergeBtnLabel.textContent = isProcessing ? dict.tool.mergingBtn : dict.tool.mergeBtn;
+    if (currentStage) {
+      progressStageText.textContent = getStageLabel(currentStage);
+    }
+    if (audioPreviewEl && !audioPreviewEl.paused) {
+      audioPreviewBtn.setAttribute('aria-label', dict.tool.pausePreview);
+    } else {
+      audioPreviewBtn.setAttribute('aria-label', dict.tool.playPreview);
+    }
+  });
+</script>
+
+<style>
+  .merger-box {
+    width: 100%;
+    max-width: 880px;
+    background: var(--surface-card);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+  }
+
+  /* 2-Column Responsive Dropzones */
+  .dropzone-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .dropzone {
+    position: relative;
+    min-height: 184px;
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--border-strong);
+    background: var(--surface-dropzone);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+      background-color var(--transition-smooth),
+      border-color var(--transition-smooth),
+      transform var(--transition-smooth),
+      box-shadow var(--transition-smooth);
+  }
+
+  .dropzone:hover {
+    background: var(--surface-dropzone-hover);
+    border-color: var(--brand-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .dropzone.is-dragover {
+    background: var(--surface-dropzone-hover);
+    border-style: solid;
+    border-color: var(--brand-primary);
+    transform: scale(1.015);
+    box-shadow: 0 0 0 5px var(--ring-focus);
+  }
+
+  .dropzone.has-file {
+    border-style: solid;
+    border-color: var(--brand-primary);
+    background: var(--bg-elevated);
+    align-items: stretch;
+    cursor: default;
+  }
+
+  .dropzone.has-file:hover {
+    transform: none;
+  }
+
+  .dropzone-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .dropzone-empty[hidden],
+  .dropzone-loaded[hidden],
+  .progress-panel[hidden],
+  .result-panel[hidden],
+  .action-area[hidden],
+  .merger-alert[hidden] {
+    display: none;
+  }
+
+  .step-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background: var(--surface-card);
+    color: var(--text-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .step-pill.is-ready {
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+  }
+
+  .drop-icon-wrap {
+    width: 60px;
+    height: 60px;
+    margin: 0.2rem 0 0.1rem;
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-smooth), background-color var(--transition-smooth);
+  }
+
+  .dropzone:hover .drop-icon-wrap,
+  .dropzone.is-dragover .drop-icon-wrap {
+    transform: translateY(-4px) scale(1.06);
+    background: var(--surface-card);
+  }
+
+  .drop-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .drop-sub {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .format-badge {
+    margin-top: 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+
+  /* Loaded File State */
+  .dropzone-loaded {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.65rem;
+    animation: fadeSlideIn 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .loaded-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .loaded-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .mini-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-dropzone);
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: background-color 150ms ease, transform 150ms ease;
+  }
+
+  .mini-action-btn:hover {
+    background: var(--surface-card);
+    transform: translateY(-1px);
+  }
+
+  .play-preview-btn {
+    min-width: 30px;
+    padding: 0.25rem 0.5rem;
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+    border-color: transparent;
+  }
+
+  .play-preview-btn .icon-pause {
+    display: none;
+  }
+
+  .play-preview-btn.is-playing .icon-play {
+    display: none;
+  }
+
+  .play-preview-btn.is-playing .icon-pause {
+    display: inline-block;
+  }
+
+  .loaded-file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .loaded-icon-badge {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loaded-text {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .file-name {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .file-meta {
+    margin: 0.1rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Animated Audio Waveform Bars */
+  .waveform-strip {
+    height: 34px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    padding-top: 4px;
+  }
+
+  .waveform-strip :global(.wave-bar) {
+    flex: 1;
+    height: var(--bar-h, 50%);
+    min-height: 4px;
+    border-radius: 99px;
+    background: var(--brand-primary);
+    opacity: 0.85;
+    transform-origin: bottom;
+    animation: waveReveal 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--bar-delay, 0ms);
+  }
+
+  .waveform-strip.is-playing :global(.wave-bar) {
+    animation: waveBounce 640ms ease-in-out infinite alternate;
+    animation-delay: var(--bar-delay, 0ms);
+  }
+
+  /* Options Panel */
+  .options-panel {
+    background: var(--surface-dropzone);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .options-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .mode-switch {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .mode-btn {
+    padding: 0.42rem 0.95rem;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+  }
+
+  .mode-btn.is-active {
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+    box-shadow: 0 2px 8px rgba(30, 25, 22, 0.14);
+  }
+
+  .toggles-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1rem;
+  }
+
+  .toggle-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle-chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .toggle-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1.8px solid var(--border-strong);
+    background: var(--bg-elevated);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .toggle-chip input:checked + .toggle-box {
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: var(--text-on-brand);
+  }
+
+  .toggle-chip input:focus-visible + .toggle-box {
+    outline: 3px solid var(--ring-focus);
+    outline-offset: 2px;
+  }
+
+  /* Smooth Mix Volume Sliders Accordion */
+  .mix-sliders-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 240ms cubic-bezier(0.22, 1, 0.36, 1), margin-top 240ms ease;
+    margin-top: 0;
+  }
+
+  .mix-sliders-wrap.is-open {
+    grid-template-rows: 1fr;
+    margin-top: 0.75rem;
+  }
+
+  .mix-sliders-inner {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .slider-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .slider-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .slider-val {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+
+  .slider-control input[type='range'] {
+    width: 100%;
+    accent-color: var(--brand-primary);
+    cursor: pointer;
+  }
+
+  /* Alert Banner */
+  .merger-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--border-strong);
+    background: var(--bg-elevated);
+    font-size: 0.88rem;
+    font-weight: 600;
+    animation: fadeSlideIn 200ms ease;
+  }
+
+  /* Action Button */
+  .merge-cta {
+    width: 100%;
+    min-height: 56px;
+    font-size: 1.1rem;
+  }
+
+  /* Progress Panel */
+  .progress-panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 0.95rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    animation: fadeSlideIn 220ms ease;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .progress-pct {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-track {
+    height: 12px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-subtle);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: relative;
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background: var(--brand-primary);
+    transition: width 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 251, 233, 0.4), transparent);
+    animation: progressShimmer 1.3s infinite linear;
+  }
+
+  /* Result Panel */
+  .result-panel {
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--brand-primary);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .result-panel.is-revealed {
+    animation: fadeSlideIn 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .result-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .result-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .success-check {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .check-path {
+    stroke-dasharray: 32;
+    stroke-dashoffset: 0;
+    animation: checkDraw 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .result-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .result-sub {
+    margin: 0.1rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .result-download-btn {
+    min-height: 48px;
+    padding: 0.65rem 1.35rem;
+    font-size: 0.98rem;
+  }
+
+  .result-preview-wrap {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #1E1916;
+  }
+
+  .result-video {
+    display: block;
+    width: 100%;
+    max-height: 260px;
+  }
+
+  .privacy-pill-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .privacy-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes waveReveal {
+    from {
+      transform: scaleY(0.15);
+      opacity: 0;
+    }
+    to {
+      transform: scaleY(1);
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes waveBounce {
+    0% {
+      transform: scaleY(0.45);
+    }
+    100% {
+      transform: scaleY(1.08);
+    }
+  }
+
+  @keyframes checkDraw {
+    from {
+      stroke-dashoffset: 32;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes progressShimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 679px) {
+    .merger-box {
+      padding: 0.85rem;
+      gap: 0.7rem;
+    }
+
+    .dropzone-grid,
+    .mix-sliders-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .dropzone-grid {
+      gap: 0.65rem;
+    }
+
+    .dropzone {
+      min-height: 118px;
+      padding: 0.7rem 0.85rem;
+    }
+
+    .drop-icon-wrap {
+      width: 44px;
+      height: 44px;
+      margin: 0.1rem 0;
+      border-radius: 14px;
+    }
+
+    .drop-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .drop-title {
+      font-size: 1.06rem;
+    }
+
+    .options-panel {
+      padding: 0.65rem 0.75rem;
+    }
+
+    .options-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.6rem;
+    }
+
+    .mode-switch {
+      width: 100%;
+    }
+
+    .mode-btn {
+      flex: 1;
+      text-align: center;
+    }
+
+    .merge-cta {
+      min-height: 52px;
+      font-size: 1.02rem;
+    }
+  }
+</style>

@@ -1,0 +1,28 @@
+{
+  "version": "dev",
+  "appShell": [
+    "/",
+    "/how-to-use/",
+    "/privacy/",
+    "/hire-me/",
+    "/manifest.webmanifest",
+    "/coi-serviceworker.js",
+    "/favicon.svg",
+    "/icons/icon.svg",
+    "/icons/icon-192.png",
+    "/icons/icon-512.png",
+    "/icons/icon-512-maskable.png",
+    "/icons/apple-touch-icon.png"
+  ],
+  "ffmpeg": {
+    "mt": [
+      "/ffmpeg/mt/ffmpeg-core.js",
+      "/ffmpeg/mt/ffmpeg-core.wasm",
+      "/ffmpeg/mt/ffmpeg-core.worker.js"
+    ],
+    "st": [
+      "/ffmpeg/st/ffmpeg-core.js",
+      "/ffmpeg/st/ffmpeg-core.wasm"
+    ]
+  }
+}
